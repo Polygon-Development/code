@@ -1,0 +1,44 @@
+appId: com.polygon.app
+publish:
+  provider: github
+  token: edda89e321fb46c7112c4d50e7e331e780b3a42e
+productName: Polygon
+asar: true
+files:
+  - "app/**/*"
+  - "node_modules/**/*"
+  - "package.json"
+  - "resources/**/*"
+  - "src/helpers/**/*"
+asarUnpack:
+  - "**/node_modules/playwright-firefox/**/*"
+
+mac:
+  category: public.app-category.social-networking
+  darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+dmg:
+  iconSize: 160
+  backgroundColor: white
+  contents:
+    - x: 180
+      y: 170
+    - x: 480
+      y: 170
+      type: link
+      path: "/Applications"
+linux:
+  category: Utility
+nsis:
+  oneClick: false
+  perMachine: true
+  allowElevation: true
+  deleteAppDataOnUninstall: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  installerIcon: "build/icon.ico"
+  installerHeaderIcon: "build/icon.ico"
+buildVersion: 1.0.0

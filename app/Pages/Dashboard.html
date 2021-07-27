@@ -1,0 +1,134 @@
+<div class="row" style="height: 100%">
+  <div class="col-12" style="height: 100%">
+    <div class="row">
+      <div class="col-5 pe-2">
+        <div class="row">
+          <div class="col-6" style="padding-right: 5px; padding-left: 10px">
+            <div id="checkoutsPanel">
+              <img
+                style="position: absolute; right: 0px; bottom: 0px; height: 60%"
+                src="../resources/checkout-dashboard-background.png"
+              />
+              <div>
+                <span style="color: #605170; font-size: 12px"
+                  >Checkouts</span
+                >
+              </div>
+              <div style="padding-top: 7px">
+                <span id="checkoutCount" style="font-size: 15px; font-weight: bold">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6" style="padding-left: 5px">
+            <div id="failurePanel">
+              <img
+                style="position: absolute; right: 0px; bottom: 0px; height: 60%"
+                src="../resources/failure-dashboard-background.png"
+              />
+              <div>
+                <span style="color: #605170; font-size: 12px"
+                  >Declines</span
+                >
+              </div>
+              <div style="padding-top: 7px">
+                <span id="declineCount" style="font-size: 15px; font-weight: bold">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding-top: 10px">
+          <div class="col-9" style="padding-right: 5px; padding-left: 10px">
+            <span style="font-size: 15px; padding-top: 3px"
+              >Checkout Analysis</span
+            >
+          </div>
+          <div class="col-3" style="padding-left: 5px">
+            <div style="width: 100%">
+              <div class="d-flex form-group-control" style="position: relative">
+                <select
+                  id="chartDataFilter"
+                  class="form-control"
+                  style="width: 100%; font-size: 14px"
+                >
+                  <option value="Day">Day</option>
+                  <option value="Week">Weekly</option>
+                  <option value="Month">Monthly</option>
+                  <option value="Year">Yearly</option>
+                </select>
+                <i
+                  class="fa fa-caret-down select-caret"
+                  style="position: absolute; right: 15px; top: 6px"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-12"
+            id="myChartParent"
+            style="height: 470px; padding-left: 10px"
+          >
+            <canvas style="margin-top: 20px" id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-7 ps-2">
+        <div style="width: 100%">
+          <span style="font-size: 15px">Past Checkouts</span>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="row" id="pastCheckoutPanel">
+              <div
+                class="card cardHeader"
+                style="
+                  color: #605170;
+                  background: transparent;
+                  font-size: 13px;
+                  border-bottom: 1px solid #2e1b42;
+                  padding-bottom: 7px;
+                "
+              >
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col-4">PRODUCT</div>
+                  <div class="col-2">SITE</div>
+                  <div class="col-2">PROFILE</div>
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-6">PRICE</div>
+                      <div class="col-6">DATE</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="animate" id="pastCheckoutList">
+                <!-- Sample  -->
+                <!-- <div class="card taskItem">
+                  <div class="cardRow">
+                    <div class="row">
+                      <div class="col-1">
+                        <img src="../resources/past-checkout-image.png" />
+                      </div>
+                      <div class="col-4">Jordan 1 Hyper Royal</div>
+                      <div class="col-2">Footlocker</div>
+                      <div class="col-2">Privecy 2</div>
+                      <div class="col-3">
+                        <div class="row">
+                          <div class="col-6">$160</div>
+                          <div style="color: #B23ACB;" class="col-6">May 2,2021</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

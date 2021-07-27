@@ -1,0 +1,591 @@
+<div class="row animate" style="padding: 0px 20px">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-5 d-flex" style="justify-content: space-between">
+        <div
+          class="action-btn"
+          id="createProfileBtn"
+          style="padding: 7px 15px; width: 120px"
+        >
+          <span>Create Profile</span>
+          <input
+            type="hidden"
+            id="openProfileModal"
+            data-bs-toggle="modal"
+            data-bs-target="#profileModal"
+          />
+        </div>
+        <div
+          class="action-btn"
+          id="importBtn"
+          style="padding: 7px 15px; width: 120px"
+        >
+          <span>Import</span>
+        </div>
+        <div
+          class="action-btn"
+          id="exportBtn"
+          style="padding: 7px 15px; width: 120px"
+        >
+          <span>Export</span>
+        </div>
+      </div>
+      <div class="col-7 d-flex" style="justify-content: flex-end">
+        <div
+          class="action-btn"
+          id="testAllProxiesBtn"
+          style="padding: 7px 10px; width: 95px; margin-right: 15px"
+        >
+          <span>Test All</span>
+        </div>
+        <div
+          class="action-btn"
+          id="deleteAllProfilesBtn"
+          style="padding: 7px 10px; width: 95px"
+        >
+          <span>Delete All</span>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-4">
+      <div class="col-12 pe-2">
+        <div class="row" id="profilesPanel">
+          <!-- Sample  -->
+          <!-- <div class="col-3" style="position: relative">
+            <img
+              style="position: absolute; right: 0px; bottom: 0px; height: 65%;z-index: -1;"
+              src="../resources/profile-background.png"
+            />
+            <div class="profileItem">
+              <div class="row">
+                <div class="col-11">
+                  <div style="display: flex; justify-content: space-between">
+                    <div><span>Privecy 1</span></div>
+                  </div>
+                  <div class="mt-4">
+                    <span style="color: rgb(211, 208, 208)">John Doe</span>
+                  </div>
+                  <div class="mt-1 d-flex">
+                    <div><img src="../resources/profile-visa.png" /></div>
+                    <div style="margin-left: 13px">4564</div>
+                  </div>
+                </div>
+                <div class="col-1" style="z-index: 9999;">
+                  <div class="row">
+                    <div class="col-12">
+                      <i class="fa fa-pencil me-2 editProfileBtn" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="row pt-3">
+                    <div class="col-12">
+                      <i class="fa fa-clone me-2 cloneProfileBtn" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="row pt-3">
+                    <div class="col-12">
+                      <i class="fa fa-trash deleteProfileBtn" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal right fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  id="profileModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #221431">
+      <div class="modal-body" style="position: relative">
+        <img
+          style="
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            transform: scaleX(-1);
+          "
+          src="../resources/profile-background.png"
+        />
+        <img
+          style="position: absolute; right: 0px; bottom: 0px"
+          src="../resources/profile-background.png"
+        />
+        <div class="row">
+          <div class="col-12 d-flex justify-content-between">
+            <div>
+              <span
+                id="formTitle"
+                class="ms-1"
+                style="font-size: 16px; padding-bottom: 8px"
+                >Create Profile</span
+              >
+            </div>
+            <div>
+              <i
+                class="fa fa-times modal-close-btn"
+                aria-hidden="true"
+                data-bs-dismiss="modal"
+                id="profileModalCloseBtn"
+              ></i>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-12" style="margin: auto">
+              <div class="createProfileTabs">
+                <div data-id="profileShipTab" class="profileTab active">
+                  Shipping
+                </div>
+                <div data-id="profileBillTab" class="profileTab">Billing</div>
+                <div data-id="profilePaymentTab" class="profileTab">
+                  Payment
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="profileShipTab" class="row mt-3 animate">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="profileName" class="form-label"
+                      >Profile Name</label
+                    >
+                    <input type="hidden" id="profileId" value="" />
+                    <input
+                      type="text"
+                      id="profileName"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipFullName" class="form-label"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      id="shipFullName"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Full Name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipEmail" class="form-label">Email</label>
+                    <input
+                      type="text"
+                      id="shipEmail"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Email"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipPhoneNo" class="form-label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="text"
+                      id="shipPhoneNo"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Phone"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipAddress" class="form-label">Address</label>
+                    <input
+                      type="text"
+                      id="shipAddress"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Address"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipAddress2" class="form-label"
+                      >Address 2</label
+                    >
+                    <input
+                      type="text"
+                      id="shipAddress2"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Address 2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipCountry" class="form-label">Country</label>
+                    <input
+                      type="text"
+                      id="shipCountry"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Country"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipState" class="form-label">State</label>
+                    <input
+                      type="text"
+                      id="shipState"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter State"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipCity" class="form-label">City</label>
+                    <input
+                      type="text"
+                      id="shipCity"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter City"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="shipZipCode" class="form-label">Zipcode</label>
+                    <input
+                      type="text"
+                      id="shipZipCode"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Zipcode"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="profileBillTab"
+            class="row mt-3 animate"
+            style="display: none"
+          >
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12" style="padding: 16px 0px">
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="sameAsShipping"
+                    />
+                    <label
+                      style="font-size: 13px; margin-left: 5px"
+                      class="form-check-label"
+                      for="sameAsShipping"
+                      >Billing same as shipping</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billFullName" class="form-label"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      id="billFullName"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Full Name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billEmail" class="form-label">Email</label>
+                    <input
+                      type="text"
+                      id="billEmail"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Email"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billPhoneNo" class="form-label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="text"
+                      id="billPhoneNo"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Phone"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billAddress" class="form-label">Address</label>
+                    <input
+                      type="text"
+                      id="billAddress"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Address"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billAddress2" class="form-label"
+                      >Address 2</label
+                    >
+                    <input
+                      type="text"
+                      id="billAddress2"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Address 2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billCountry" class="form-label">Country</label>
+                    <input
+                      type="text"
+                      id="billCountry"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Country"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billState" class="form-label">State</label>
+                    <input
+                      type="text"
+                      id="billState"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter State"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billCity" class="form-label">City</label>
+                    <input
+                      type="text"
+                      id="billCity"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter City"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="billZipCode" class="form-label">Zipcode</label>
+                    <input
+                      type="text"
+                      id="billZipCode"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Zipcode"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="profilePaymentTab"
+            class="row pt-3 animate"
+            style="display: none"
+          >
+            <div class="col-12" style="border-radius: 5px; overflow: hidden">
+              <div class="row pt-3">
+                <div class="col-12">
+                  <div class="profileCard">
+                    <img
+                      style="position: absolute; right: 0px; bottom: 0px"
+                      src="../resources/profile-card-background.png"
+                    />
+                    <div>
+                      <span id="groupNamePreview">Privecy 1</span>
+                    </div>
+                    <div style="padding-top: 30px">
+                      <span
+                        class="d-inline-block text-truncate"
+                        id="profileCardHolderPreview"
+                        style="
+                          color: rgb(168, 167, 167);
+                          font-size: 11px;
+                          width: 200px;
+                        "
+                        >John Doe</span
+                      >
+                    </div>
+                    <div style="padding-top: 5px">
+                      <img src="../resources/profile-visa.png" />
+                      <span
+                        id="profileCardNoPreview"
+                        style="
+                          padding-left: 10px;
+                          padding-top: 2px;
+                          font-size: 12px;
+                        "
+                        >XXXX XXXX XXXX XXXX</span
+                      >
+                    </div>
+                    <div style="padding-top: 5px">
+                      <span
+                        id="profileExpirationPreview"
+                        style="color: rgb(168, 167, 167); font-size: 11px"
+                        >MM/YY</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="profileCardHolder" class="form-label"
+                      >Card Holder</label
+                    >
+                    <input
+                      type="text"
+                      id="profileCardHolder"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="profileCardNo" class="form-label"
+                      >Card Number</label
+                    >
+                    <input
+                      type="number"
+                      min="0"
+                      max="16"
+                      oninput="validity.valid||(value='');"
+                      id="profileCardNo"
+                      onKeyPress="if(this.value.length==16) return false;"
+                      id="profileCardNo"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter Card No"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pe-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="profileExpiration" class="form-label"
+                      >Expiration</label
+                    >
+                    <input
+                      type="text"
+                      id="profileExpiration"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="MM/YY"
+                    />
+                  </div>
+                </div>
+                <div class="col-6 ps-1">
+                  <div class="form-group-control" style="width: 100%">
+                    <label for="profileCVV" class="form-label">CVV</label>
+                    <input
+                      type="text"
+                      id="profileCVV"
+                      class="form-control"
+                      style="width: 100%; font-size: 14px"
+                      placeholder="Enter CVV"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 d-flex" style="justify-content: center">
+              <div
+                class="action-btn add-btn"
+                id="saveProfileBtn"
+                style="padding: 7px 20px; width: 150px; text-align: center"
+              >
+                Save Profile
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

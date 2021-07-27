@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElephantAIO</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../node_modules/font-awesome/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./css/Master.css" />
+
+    <script type="text/javascript">
+      require("bootstrap");
+    </script>
+    <script src="./js/fontawesome.js"></script>
+  </head>
+  <body style="background: #1b0d2b; height: 100vh" class="animate">
+    <div class="row">
+      <div class="col-1" style="width: 62px">
+        <div class="row">
+          <div class="col-12" style="background: #160924; height: 100vh">
+            <div class="row">
+              <div class="col-12">
+                <img style="padding: 10px" src="../resources/login-logo.png" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 navbar">
+                <div data-id="dashboard" class="nav-item active">
+                  <i class="fa fa-area-chart" aria-hidden="true"></i>
+                </div>
+                <div data-id="tasks" class="nav-item">
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                </div>
+                <div data-id="profiles" class="nav-item">
+                  <i class="fa fa-address-card" aria-hidden="true"></i>
+                </div>
+                <div data-id="proxies" class="nav-item">
+                  <i class="fa fa-bolt" aria-hidden="true"></i>
+                </div>
+                <div data-id="settings" class="nav-item">
+                  <i class="fa fa-cog" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 170px; font-weight: bold">
+              <div class="col-12 text-center">
+                <span style="color: #605170; font-size: 12px">V</span>
+                <span
+                  style="color: aliceblue; margin-left: 1px; font-size: 12px"
+                  >1.0</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-11" style="width: 95.1%">
+        <div class="row" style="height: 70px">
+          <div
+            id="navNamePanel"
+            class="col-3"
+            style="background: #221431; padding-top: 20px; width: 21%"
+          >
+            <span style="padding-left: 30px" id="navName">Task Groups</span>
+          </div>
+          <div
+            id="groupNamePanel"
+            class="col-7"
+            style="background: #160924; padding-top: 20px; padding-left: 20px"
+          >
+            <span id="groupName">Group Name</span>
+          </div>
+          <div
+            id="frameActionBtns"
+            class="col-2"
+            style="background: #160924; width: 20.666667%"
+          >
+            <div class="row align-items-end">
+              <div class="col-3"></div>
+              <div class="col-9">
+                <div class="row justify-content-end" style="padding-top: 20px">
+                  <div class="col-4">
+                    <div class="row">
+                      <div class="col-6">
+                        <i
+                          id="minimize"
+                          class="fa fa-minus fa-btn"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      <div class="col-6">
+                        <i
+                          id="close"
+                          class="fa fa-times fa-btn"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height: 90%; background: #160924">
+          <div id="sidebar-content" class="col-3" style="width: 21%"></div>
+          <div id="content-wrapper" class="col-9" style="width: 79%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="snackbar">snackBar</div>
+    <script src="app.js"></script>
+  </body>
+</html>

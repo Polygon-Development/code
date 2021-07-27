@@ -1,0 +1,359 @@
+<div class="row animate" style="padding: 0px 20px">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-8 d-flex" style="justify-content: space-between">
+        <div
+          class="action-btn"
+          id="createTaskBtn"
+          style="padding: 7px 10px; width: 100px"
+        >
+          <input
+            id="openTaskModal"
+            type="hidden"
+            data-bs-toggle="modal"
+            data-bs-target="#taskModal"
+          />
+          <span>Create Task</span>
+        </div>
+        <div
+          class="action-btn"
+          id="startAllTasksBtn"
+          style="padding: 7px 10px; width: 100px"
+        >
+          <span>Start All</span>
+        </div>
+        <div
+          class="action-btn"
+          id="editAllTasksBtn"
+          style="padding: 7px 10px; width: 100px"
+        >
+          <span>Edit All</span>
+        </div>
+        <div
+          class="action-btn"
+          id="stopAllTasksBtn"
+          style="padding: 7px 10px; width: 100px"
+        >
+          <span>Stop All</span>
+        </div>
+        <div
+          class="action-btn"
+          id="deleteAllTasksBtn"
+          style="padding: 7px 10px; width: 100px"
+        >
+          <span>Delete All</span>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-4">
+      <div class="col-12 pe-2">
+        <div class="row">
+          <div
+            class="card cardHeader"
+            style="
+              color: #605170;
+              background: transparent;
+              font-size: 13px;
+              border-bottom: 1px solid #2e1b42;
+              padding-bottom: 7px;
+            "
+          >
+            <div class="row">
+              <div class="col-4">PRODUCT</div>
+              <div class="col-2">SITE</div>
+              <div class="col-2">PROFILE</div>
+              <div class="col-3">
+                <div class="row">
+                  <div class="col-6">PROXY</div>
+                  <div class="col-6">STATUS</div>
+                </div>
+              </div>
+              <div class="col-1 text-end">ACTIONS</div>
+            </div>
+          </div>
+          <div class="animate" id="tasksListPanel">
+            <!-- Sample  -->
+            <!-- <div class="card taskItem">
+              <div class="cardRow">
+                <div class="row">
+                  <div class="col-4">
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="width: 290px"
+                      >Jordan 1 Hyper Royal</span
+                    >
+                  </div>
+                  <div class="col-2">
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="width: 140px"
+                      >Footlocker</span
+                    >
+                  </div>
+                  <div class="col-2">
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="width: 140px"
+                      >Privecy 2</span
+                    >
+                  </div>
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-6">
+                        <span
+                          class="d-inline-block text-truncate"
+                          style="width: 100px"
+                          >Poly Resi</span
+                        >
+                      </div>
+                      <div class="col-6">Add to cart</div>
+                    </div>
+                  </div>
+                  <div class="col-1 text-end">
+                    <i
+                      class="fa fa-play playStopTaskItemBtn"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      class="fa fa-pencil editTaskItemBtn"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      class="fa fa-trash deleteTaskItemBtn"
+                      aria-hidden="true"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal right fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  id="taskModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #221431">
+      <div class="modal-body" style="position: relative">
+        <img
+          style="
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            transform: scaleX(-1);
+          "
+          src="../resources/profile-background.png"
+        />
+        <img
+          style="position: absolute; right: 0px; bottom: 0px"
+          src="../resources/profile-background.png"
+        />
+        <div class="row">
+          <div class="col-12 d-flex justify-content-between">
+            <div>
+              <span
+                id="formTitle"
+                class="ms-1"
+                style="font-size: 16px; padding-bottom: 8px"
+                >Create Task</span
+              >
+              <span
+                id="selectedTask"
+                style="margin-left: 10px; display: none"
+                class="badge bg-secondary"
+                >0</span
+              >
+            </div>
+            <div>
+              <i
+                class="fa fa-times modal-close-btn"
+                aria-hidden="true"
+                data-bs-dismiss="modal"
+                id="closeTaskBtn"
+              ></i>
+            </div>
+          </div>
+
+          <div class="row pt-3">
+            <div class="col-12">
+              <div style="width: 100%">
+                <label style="font-size: 12px" for="taskSite" class="form-label"
+                  >Site</label
+                >
+                <div class="d-flex form-group-control">
+                  <input type="hidden" id="taskId" value="" />
+                  <select
+                    id="taskSite"
+                    class="form-control"
+                    style="width: 100%; font-size: 14px"
+                  >
+                    <option value="">Select site</option>
+                    <option value="Test">Test</option>
+                    <option value="DSG">DSG</option>
+                    <option value="Amazon">Amazon</option>
+                    <option value="EndClothing">EndClothing</option>
+                    <option value="Walmart">Walmart</option>
+                  </select>
+                  <i
+                    class="fa fa-caret-down select-caret"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group-control" style="width: 100%">
+                <label for="taskMonitorInput" class="form-label"
+                  >Monitor Input</label
+                >
+                <input
+                  type="text"
+                  id="taskMonitorInput"
+                  class="form-control"
+                  style="width: 100%; font-size: 14px"
+                  placeholder="Keywords/SKU/URL"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 pe-1">
+              <div class="form-group-control" style="width: 100%">
+                <label for="taskSize" class="form-label">Size</label>
+                <input
+                  type="text"
+                  id="taskSize"
+                  class="form-control"
+                  style="width: 100%; font-size: 14px"
+                  placeholder="Enter Size"
+                />
+              </div>
+            </div>
+            <div class="col-6 ps-1">
+              <div style="width: 100%">
+                <label style="font-size: 12px" for="taskMode" class="form-label"
+                  >Mode</label
+                >
+                <div class="d-flex form-group-control">
+                  <select
+                    id="taskMode"
+                    class="form-control"
+                    style="width: 100%; font-size: 14px"
+                  >
+                    <option value="">Select site</option>
+                    <option value="Safe">Safe</option>
+                    <option value="Danger">Danger</option>
+                  </select>
+                  <i
+                    class="fa fa-caret-down select-caret"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 pe-1">
+              <div style="width: 100%">
+                <label
+                  style="font-size: 12px"
+                  for="taskProfile"
+                  class="form-label"
+                  >Profile</label
+                >
+                <div class="d-flex form-group-control">
+                  <select
+                    id="taskProfile"
+                    class="form-control"
+                    style="width: 100%; font-size: 14px"
+                  >
+                    <option value="">Select Profile</option>
+                    <option value="Safe">Profile 1</option>
+                  </select>
+                  <i
+                    class="fa fa-caret-down select-caret"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 ps-1">
+              <div style="width: 100%">
+                <label
+                  style="font-size: 12px"
+                  for="taskProxy"
+                  class="form-label"
+                  >Proxy</label
+                >
+                <div class="d-flex form-group-control">
+                  <select
+                    id="taskProxy"
+                    class="form-control"
+                    style="width: 100%; font-size: 14px"
+                  >
+                    <option value="">Select Proxy</option>
+                    <option value="Safe">Proxy 1</option>
+                  </select>
+                  <i
+                    class="fa fa-caret-down select-caret"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 pe-1">
+              <div class="form-group-control" style="width: 100%">
+                <label for="taskColor" class="form-label">Color</label>
+                <input
+                  type="text"
+                  id="taskColor"
+                  class="form-control"
+                  style="width: 100%; font-size: 14px"
+                  placeholder="Enter Color"
+                />
+              </div>
+            </div>
+            <div class="col-6 ps-1">
+              <div class="form-group-control" style="width: 100%">
+                <label for="taskQty" class="form-label">Quantity</label>
+                <input
+                  type="number"
+                  id="taskQty"
+                  class="form-control"
+                  style="width: 100%; font-size: 14px; appearance: none"
+                  placeholder="Default 1"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12 d-flex" style="justify-content: center">
+              <div
+                class="action-btn add-btn"
+                id="saveTaskBtn"
+                style="padding: 7px 20px; width: 150px; text-align: center"
+              >
+                Save Task
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Polygon</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../node_modules/font-awesome/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./css/Master.css" />
+
+    <script type="text/javascript">
+      require("bootstrap");
+    </script>
+    <script src="./js/fontawesome.js"></script>
+  </head>
+  <body class="animate">
+    <div style="height: 100vh">
+      <div class="row justify-content-end pt-3">
+        <div class="col-1" style="width: 6%">
+          <i id="minimize" class="fa fa-minus fa-btn" aria-hidden="true"></i>
+        </div>
+        <div class="col-1">
+          <i id="close" class="fa fa-times fa-btn" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="login-background-img" style="z-index: -1">
+        <img
+          style="width: 100%; height: 100%; z-index: -1"
+          src="../resources/login-background.png"
+        />
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 d-flex" style="padding-left: 75px">
+          <div>
+            <img src="../resources/login-logo.png" />
+          </div>
+          <div>
+            <img
+              style="padding: 8px 10px"
+              src="../resources/login-logo-text.png"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12" style="padding-left: 75px; padding-top: 20px">
+          <span
+            style="
+              font-style: normal;
+              font-weight: bold;
+              font-size: 17px;
+              letter-spacing: 2px;
+            "
+            >Login</span
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8" style="padding-left: 75px; padding-top: 15px">
+          <div class="form-group-control">
+            <label for="licanceKeyTxt" class="form-label">License Key</label>
+            <input
+              type="text"
+              id="licanceKeyTxt"
+              class="form-control"
+              style="width: 250px"
+              maxlength="23"
+              value=""
+              placeholder="xxxxx-xxxxx-xxxxx-xxxxx"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8" style="padding-top: 20px; padding-left: 75px">
+          <div>
+            <div id="authenticBtn">
+              <span style="font-size: 12px; letter-spacing: 1px; z-index: -1"
+                >Login</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div
+          class="col-sm-8"
+          style="padding-top: 25px; padding-left: 75px; font-size: 11px"
+        >
+          <span style="color: #605170">V</span>
+          <span style="color: aliceblue; margin-left: 1px">1.0</span>
+        </div>
+      </div>
+    </div>
+    <div id="snackbar">snackBar</div>
+    <script>
+      const db = require("electron-db");
+      const fs = require("fs");
+      const userDataPath = (
+        require("electron").app || require("electron").remote.app
+      ).getPath("userData");
+      const dbPath = userDataPath + "/db";
+
+      document.getElementById("close").onclick = (e) => {
+        let window =
+          require("electron").remote.BrowserWindow.getFocusedWindow();
+        window.close();
+      };
+
+      document.getElementById("minimize").onclick = (e) => {
+        let window =
+          require("electron").remote.BrowserWindow.getFocusedWindow();
+        window.minimize();
+      };
+
+      showSnackbar = (msg, color = "#ffffff") => {
+        var x = document.getElementById("snackbar");
+        x.innerText = msg;
+        x.style.color = color;
+        x.className = "show";
+        setTimeout(function () {
+          x.className = x.className.replace("show", "");
+        }, 1400);
+      };
+
+      const { ipcRenderer } = require("electron");
+      document.getElementById("licanceKeyTxt").onkeyup = (e) => {
+        let ele = e.target;
+        if(ele.value != "") {
+          ele = ele.value.split("-").join("");
+          let finalVal = ele.match(/.{1,5}/g).join("-");
+          e.target.value = finalVal;
+        }
+      };
+
+      async function checkLogin(licanceKey) {
+        if (!fs.existsSync(`${userDataPath}/db`)) {
+          fs.mkdirSync(`${userDataPath}/db`);
+        }
+
+        if (!fs.existsSync(`${dbPath}/User.json`)) {
+          db.createTable("User", dbPath, (succ, msg) => {});
+        }
+
+        return new Promise(async (resolve, reject) => {
+          try {
+            const axios = require("axios");
+            await axios
+              .get(`https://www.elephantaio.shop/api/v1/keys/${licanceKey}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "ak_7MYPWhDrsRL9Uaxv-YeU",
+                },
+              })
+              .then(async (response) => {
+                let userData = response.data.key;
+                await db.insertTableContent(
+                  `User`,
+                  dbPath,
+                  userData,
+                  async (succ, msg) => {
+                    if (succ) {
+                      resolve(response.data.success);
+                    }
+                  }
+                );
+              });
+          } catch (error) {
+            resolve(error.response.data.success);
+          }
+        });
+      }
+
+      document.getElementById("authenticBtn").onclick = async (e) => {
+        let licanceKeyVal = document.getElementById("licanceKeyTxt").value;
+        if (licanceKeyVal !== "") {
+          let status = await checkLogin(licanceKeyVal);
+          if (status) {
+            ipcRenderer.send("changeSize");
+          } else {
+            showSnackbar("License key not valid", "#fa4f72");
+          }
+        } else {
+          showSnackbar("License key required", "#fa4f72");
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,833 @@
+@font-face {
+  font-family: Roboto-Medium;
+  src: url(../fonts/Roboto-Medium.ttf);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Roboto-Medium !important;
+  font-style: normal;
+  padding: 0;
+  position: relative;
+  margin: 0;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #1b0d2b;
+  min-height: 100%;
+  color: #ffffff;
+  transition: all 0.5s;
+}
+
+/* Hide active focus on input fields */
+textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+select.form-control:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+[type="text"].form-control:focus,
+[type="password"].form-control:focus,
+[type="email"].form-control:focus,
+[type="tel"].form-control:focus,
+[contenteditable].form-control:focus {
+  box-shadow: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/*******************************
+* MODAL AS LEFT/RIGHT SIDEBAR
+* Add "left" or "right" in modal parent div, after class="modal".
+* Get free snippets on bootpen.com
+*******************************/
+.modal.left .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 320px;
+  height: 100%;
+  left: -320px;
+  transform: translate3d(0%, 0, 0);
+}
+
+.modal.right .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 350px;
+  height: 100%;
+  right: -350px;
+  transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+  padding: 15px 15px;
+}
+
+.modal.left.fade .modal-dialog {
+  left: 0;
+  transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+  right: 0;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  border-bottom-color: #eeeeee;
+  background-color: #fafafa;
+}
+
+/* Page Animation */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate {
+  opacity: 0;
+  animation: fade 0.7s ease-in-out 0s forwards;
+  -webkit-animation: fade 0.7s ease-in-out 0s forwards;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 15px;
+  padding: 16px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 30px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 1s;
+  animation: fadein 0.5s, fadeout 0.5s 1s;
+}
+
+.styled-scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+.styled-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background: #998df7;
+}
+
+#close,
+.modal-close-btn {
+  color: #ffffff;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+#close:hover,
+.modal-close-btn:hover {
+  color: #fa4f72;
+}
+
+#minimize {
+  color: #ffffff;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+#minimize:hover {
+  color: #ffff66;
+}
+
+.form-group-control {
+  display: inline-block;
+  width: 100%;
+}
+
+.row {
+  --bs-gutter-x: 0px;
+}
+
+.form-group-control > .form-control {
+  color: #ffffff;
+  background: #2b1c3a !important;
+  border: 1px solid #362746 !important;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 3px 10px;
+}
+
+.login-background-img {
+  height: 150px;
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  z-index: -1;
+}
+
+#authenticBtn {
+  cursor: pointer;
+  width: 100px;
+  padding: 0px 30px;
+  background: #cd8b7c;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 4px;
+  transition: box-shadow 0.4s;
+}
+
+#authenticBtn:hover {
+  box-shadow: 0 0 10px #e9a899;
+}
+
+.fa-btn {
+  cursor: pointer;
+}
+
+.form-check-input {
+  background-color: #403050;
+  cursor: pointer;
+}
+
+.form-check-input:focus {
+  box-shadow: none;
+  border-color: unset;
+}
+
+.form-check-input:checked {
+  background-color: #741488;
+  border-color: #741488;
+}
+
+.navbar {
+  position: relative;
+  margin-top: 150px;
+}
+
+.navbar .nav-item {
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  margin-top: 25px;
+  color: #5d506b;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.navbar .nav-item:hover {
+  color: #b23acb;
+}
+
+.navbar .nav-item.active {
+  color: #b23acb;
+}
+
+#sidebar-content {
+  background: #221431;
+}
+
+#navName,
+#groupName {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.form-label {
+  font-size: 12px;
+  color: #cd8b7c;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border: 1px solid #cd8b7c;
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 100px;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.4s;
+}
+
+.action-btn:hover {
+  background: #cd8b7c;
+  border: 1px solid #f3b0a1;
+}
+
+#testBtn {
+  border: 1px solid #6fff7d;
+}
+
+#testBtn:hover {
+  background: #6fff7d;
+  border: 1px solid #9ef8a7;
+}
+
+.deleteGoogleAcc {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  color: #b23acb;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.deleteGoogleAcc:hover {
+  color: #de85f0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#googleLoginPanel::-webkit-scrollbar {
+  display: none;
+}
+
+#proxyGroupPanel,
+#profileGroupPanel,
+#taskGroupPanel {
+  height: 550px;
+  overflow-y: scroll;
+}
+
+#proxyGroupPanel::-webkit-scrollbar,
+#profileGroupPanel::-webkit-scrollbar,
+#taskGroupPanel::-webkit-scrollbar {
+  display: none;
+}
+
+#proxyGroupPanel .list-group-item,
+#profileGroupPanel .list-group-item,
+#taskGroupPanel .list-group-item {
+  background: #2e1e3f;
+  border-radius: 0px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.4s;
+  margin: 2px 0px;
+}
+
+#proxyGroupPanel .list-group-item i,
+#profileGroupPanel .list-group-item i,
+#taskGroupPanel .list-group-item i {
+  color: #b23acb;
+}
+
+#proxyGroupPanel .list-group-item i.fa-folder,
+#profileGroupPanel .list-group-item i.fa-folder,
+#taskGroupPanel .list-group-item i.fa-folder {
+  color: #544465;
+}
+
+#proxyGroupPanel .list-group-item:hover,
+#proxyGroupPanel .list-group-item.active {
+  background: #ababff;
+  border-radius: 0px;
+}
+
+#profileGroupPanel .list-group-item:hover,
+#profileGroupPanel .list-group-item.is-active {
+  background: #b23acb;
+  border-radius: 0px;
+}
+
+#taskGroupPanel .list-group-item:hover,
+#taskGroupPanel .list-group-item.is-active {
+  background: #cd8b7c;
+  border-radius: 0px;
+}
+
+#proxyGroupPanel .list-group-item:hover i,
+#proxyGroupPanel .list-group-item.active i,
+#profileGroupPanel .list-group-item:hover i,
+#profileGroupPanel .list-group-item.is-active i,
+#taskGroupPanel .list-group-item:hover i,
+#taskGroupPanel .list-group-item.is-active i {
+  color: #e7c5ee;
+}
+
+.deleteGroup {
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.deleteGroup:hover {
+  color: #7c7783 !important;
+}
+
+#saveProxiesBtn,
+#saveProxyGroupBtn {
+  border: 1px solid #7f7fd5;
+}
+
+#saveProxiesBtn:hover,
+#saveProxyGroupBtn:hover {
+  background: #7f7fd5;
+  border: 1px solid #7f7fd5;
+}
+
+#createProfileBtn,
+#saveProfileGroupBtn,
+#saveProfileBtn {
+  border: 1px solid #b23acb;
+}
+
+#createProfileBtn:hover,
+#saveProfileGroupBtn:hover,
+#saveProfileBtn:hover {
+  background: #b23acb;
+  border: 1px solid #b23acb;
+}
+
+#createTaskBtn,
+#saveTaskGroupBtn {
+  border: 1px solid #cd8b7c;
+}
+
+#createTaskBtn:hover,
+#saveTaskGroupBtn:hover {
+  background: #cd8b7c;
+  border: 1px solid #cd8b7c;
+}
+
+#startAllTasksBtn {
+  border: 1px solid #6fff7d;
+}
+
+#startAllTasksBtn:hover {
+  background: #6fff7d;
+  border: 1px solid #6fff7d;
+}
+
+#editAllTasksBtn {
+  border: 1px solid #7eb4f1;
+}
+
+#editAllTasksBtn:hover {
+  background: #7eb4f1;
+  border: 1px solid #7eb4f1;
+}
+
+#stopAllTasksBtn {
+  border: 1px solid #f76f6f;
+}
+
+#stopAllTasksBtn:hover {
+  background: #f76f6f;
+  border: 1px solid #f76f6f;
+}
+
+#deleteAllTasksBtn {
+  border: 1px solid #b23acb;
+}
+
+#deleteAllTasksBtn:hover {
+  background: #b23acb;
+  border: 1px solid #b23acb;
+}
+
+#startAllProxiesBtn {
+  border: 1px solid #6fff7d;
+}
+
+#startAllProxiesBtn:hover {
+  background: #6fff7d;
+  border: 1px solid #6fff7d;
+}
+
+#testAllProxiesBtn {
+  border: 1px solid #6fff7d;
+}
+
+#testAllProxiesBtn:hover {
+  background: #6fff7d;
+  border: 1px solid #6fff7d;
+}
+
+#deleteAllProxiesBtn,
+#deleteAllProfilesBtn {
+  border: 1px solid #b23acb;
+}
+
+#deleteAllProxiesBtn:hover,
+#deleteAllProfilesBtn:hover {
+  background: #b23acb;
+  border: 1px solid #b23acb;
+}
+
+#creatProxyGroupBtn {
+  border: 1px solid #7f7fd5;
+}
+
+#creatProxyGroupBtn:hover {
+  background: #7f7fd5;
+  border: 1px solid #7f7fd5;
+}
+
+#creatProfileGroupBtn {
+  border: 1px solid #b23acb;
+}
+
+#creatProfileGroupBtn:hover {
+  background: #b23acb;
+  border: 1px solid #b23acb;
+}
+
+#creatTaskGroupBtn {
+  border: 1px solid #cd8b7c;
+}
+
+#creatTaskGroupBtn:hover {
+  background: #cd8b7c;
+  border: 1px solid #cd8b7c;
+}
+
+#proxies {
+  background: transparent;
+  border: 1px solid #7f7fd5;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  resize: none;
+  color: #605170;
+  height: 540px;
+}
+#proxies:focus {
+  outline: none;
+}
+
+#proxiesListPanel,
+#tasksListPanel {
+  padding-top: 5px;
+  height: 510px;
+  overflow-y: scroll;
+}
+
+#proxiesListPanel::-webkit-scrollbar,
+#tasksListPanel::-webkit-scrollbar,
+#pastCheckoutList::-webkit-scrollbar {
+  display: none;
+}
+
+#proxiesListPanel .proxyItem,
+#pastCheckoutList .taskItem {
+  background: transparent;
+  font-size: 11px;
+  padding: 8px 0px;
+}
+
+#tasksListPanel .taskItem {
+  background: transparent;
+  font-size: 11px;
+  padding: 8px 5px;
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+
+#tasksListPanel .taskItem:hover,
+#tasksListPanel .taskItem.active {
+  background: #cd8b7c;
+}
+
+.playProxyBtn {
+  margin-right: 5px;
+  color: #6fff7d;
+  cursor: pointer;
+}
+.playProxyBtn:hover {
+  box-shadow: 0 0 10px #6fff7d;
+}
+
+.deleteProxyBtn {
+  margin-right: 5px;
+  color: #b23acb;
+  cursor: pointer;
+}
+.deleteProxyBtn:hover {
+  box-shadow: 0 0 10px #b23acb;
+}
+
+#profilesPanel {
+  max-height: 550px;
+  overflow-y: scroll;
+}
+
+#profilesPanel::-webkit-scrollbar {
+  display: none;
+}
+
+#profilesPanel .profileItem {
+  height: 125px;
+  padding: 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 5px;
+  background: linear-gradient(246.56deg, #b23acb 0%, #b43865 100%);
+}
+
+.playStopTaskItemBtn.fa-play {
+  color: #8aceaa;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: color 0.3s;
+}
+
+.playStopTaskItemBtn.fa-play:hover {
+  color: #00ff77;
+}
+
+.playStopTaskItemBtn.fa-stop {
+  color: #ffce85;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: color 0.3s;
+}
+
+.playStopTaskItemBtn.fa-stop:hover {
+  color: #f89e17;
+}
+
+.editTaskItemBtn {
+  color: #ffffff;
+  transition: color 0.3s;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.editTaskItemBtn:hover {
+  color: #979797;
+}
+
+.deleteTaskItemBtn {
+  color: #ff6a73;
+  transition: color 0.3s;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.deleteTaskItemBtn:hover {
+  color: #ec1927;
+}
+
+.createProfileTabs {
+  border: 1px solid #362746;
+  padding: 5px 7px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.createProfileTabs .profileTab {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  padding: 3px 0px;
+  transition: background 0.3s ease-in-out;
+}
+
+.createProfileTabs .profileTab:hover,
+.createProfileTabs .profileTab.active {
+  background: #b23acb;
+}
+
+#profileShipTab .form-label,
+#profileBillTab .form-label,
+#profilePaymentTab .form-label {
+  font-size: 12px !important;
+  color: #b23acb !important;
+}
+
+#profileShipTab .form-group-control,
+#profileBillTab .form-group-control,
+#profilePaymentTab .form-group-control {
+  padding-top: 5px;
+}
+
+.profileCard {
+  height: 150px;
+  width: 100%;
+  padding: 20px;
+  font-size: 13px;
+  background: linear-gradient(#221431, #221431) padding-box,
+    linear-gradient(to right, #9c20aa, #fb3570) border-box;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  position: relative;
+}
+
+.select-caret {
+  font-size: 17px;
+  position: relative;
+  right: 25px;
+  top: 8px;
+  transition: all 0.3s;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#taskModal label {
+  padding-top: 15px !important;
+}
+
+#checkoutsPanel {
+  height: 100px;
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 14px;
+  background: linear-gradient(#221431, #221431) padding-box,
+    linear-gradient(to right, #cd8b7c, #fc5029) border-box;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  position: relative;
+}
+
+#failurePanel {
+  height: 100px;
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 14px;
+  background: linear-gradient(#221431, #221431) padding-box,
+    linear-gradient(to right, #9c20aa, #fb3570) border-box;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  position: relative;
+}
+
+#pastCheckoutPanel {
+  padding: 10px;
+  padding-top: 20px;
+}
+
+#pastCheckoutList {
+  overflow-y: scroll;
+  height: 540px;
+}
+
+#logoutBtn {
+  border: 1px solid #f86d6d;
+  padding: 30px;
+  line-height: 0;
+  text-align: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+#logoutBtn:hover {
+  background: #f86d6d;
+  border: 1px solid #f86d6d;
+  box-shadow: 0 0 10px #f86d6d;
+}
+
+.editProfileBtn,
+.cloneProfileBtn,
+.deleteProfileBtn {
+  color: #ffffff;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.editProfileBtn:hover {
+  color: #6bd3fc;
+}
+.cloneProfileBtn:hover {
+  color: #a36df8;
+}
+.deleteProfileBtn:hover {
+  color: #fa4f72;
+}
