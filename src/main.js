@@ -16,6 +16,8 @@ var mainWindow;
 if (env.name !== "production") {
   const userDataPath = app.getPath("userData");
   app.setPath("userData", `${userDataPath} (${env.name})`);
+} else {
+  devtools = false
 }
 const db = require("electron-db");
 const fs = require("fs");

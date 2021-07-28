@@ -1,6 +1,6 @@
 {
   "name": "polygon-software",
-  "productName": "Polygon Software",
+  "productName": "Polygon",
   "description": "Polygon Software Description",
   "version": "1.0.1",
   "private": true,
@@ -31,9 +31,9 @@
     "pree2e": "webpack --config=build/webpack.app.config.js --env=test && webpack --config=build/webpack.e2e.config.js --env=test",
     "e2e": "mocha temp/e2e.js --require source-map-support/register",
     "test": "npm run unit && npm run e2e",
-    "start": "node build/start.js",
+    "start": "node build/start.js ",
     "build": "webpack --config=build/webpack.app.config.js --env=production && electron-builder build --win --config=electron-builder.yml",
-    "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder build --win --config=electron-builder.yml --publish always"
+    "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder build --win --config=electron-builder.yml --publish always "
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
