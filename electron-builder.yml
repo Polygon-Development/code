@@ -1,7 +1,7 @@
 appId: com.polygon.app
 publish:
   provider: github
-  token: edda89e321fb46c7112c4d50e7e331e780b3a42e
+  token: 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
 productName: Polygon
 asar: true
 files:
@@ -41,4 +41,4 @@ nsis:
   createDesktopShortcut: always
   installerIcon: "build/icon.ico"
   installerHeaderIcon: "build/icon.ico"
-buildVersion: 1.0.0
+buildVersion: 1.0.1

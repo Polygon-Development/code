@@ -1,4 +1,5 @@
 const eventEmmiter = require("./events").eventEmmiter;
+const playwright = require('playwright')
 
 const siteFunctionsObj = {
   getDiscordWebhookUrl: async () => {
@@ -125,10 +126,10 @@ const siteFunctionsObj = {
       return {};
     }
   },
-  Test: (taskId, task) => {
+  Test: async (taskId, task) => {
     siteFunctionsObj.setStatus(`taskStatus_${taskId}`, "Starting Task", "#FAD2E1");
-    siteFunctionsObj.checkout(task, "https://images.stockx.com/images/Yeezy-Slide-Bone-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1608522495", 60)
-    console.log(taskId, task)
+    await siteFunctionsObj.sleep(3000)
+    siteFunctionsObj.stopTask(taskId)
   }
 
 };

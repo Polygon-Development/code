@@ -212,6 +212,8 @@ module.exports = helperObj;
 
 const eventEmmiter = __webpack_require__(/*! ./events */ "./src/helpers/events.js").eventEmmiter;
 
+const playwright = __webpack_require__(/*! playwright */ "playwright");
+
 const siteFunctionsObj = {
   getDiscordWebhookUrl: async () => {
     let settingsData = await __webpack_require__(/*! ../js/Settings */ "./src/js/Settings.js").getSettings();
@@ -304,10 +306,10 @@ const siteFunctionsObj = {
       return {};
     }
   },
-  Test: (taskId, task) => {
+  Test: async (taskId, task) => {
     siteFunctionsObj.setStatus(`taskStatus_${taskId}`, "Starting Task", "#FAD2E1");
-    siteFunctionsObj.checkout(task, "https://images.stockx.com/images/Yeezy-Slide-Bone-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1608522495", 60);
-    console.log(taskId, task);
+    await siteFunctionsObj.sleep(3000);
+    siteFunctionsObj.stopTask(taskId);
   }
 };
 module.exports = siteFunctionsObj;
@@ -1531,15 +1533,17 @@ const proxiesObj = {
     }
   },
   fillProxies: async groupId => {
-    let proxies = await proxiesObj.getProxiesByGroupId(groupId);
+    var proxies = await proxiesObj.getProxiesByGroupId(groupId);
     let proxyItems = ``;
+    let str = '';
 
     for (let i = 0; i < proxies.length; i++) {
+      str += proxies[i].proxy + '\n';
       proxyItems += `<div class="card proxyItem animate" id="proxyListItem_${proxies[i].proxyId}">
           <div class="cardRow">
             <div class="row">
               <div class="col-7">
-              ${proxies[0].proxy}
+              ${proxies[i].proxy}
               </div>
               <div class="col-3" style="color: #b23acb" id="timeProxyListItem_${proxies[i].proxyId}">0 ms</div>
               <div class="col-2 text-end">
@@ -1559,6 +1563,7 @@ const proxiesObj = {
         </div>`;
     }
 
+    document.getElementById("proxies").value = str;
     document.getElementById("proxiesListPanel").innerHTML = proxyItems;
 
     for (let i = 0; i < proxies.length; i++) {
@@ -1602,7 +1607,7 @@ const proxiesObj = {
 
     let currentProxyCount = parseInt(document.getElementById("proxyGroupTotal").value);
 
-    if (currentProxyCount == 0 || document.getElementById("proxyGroupTotal").value) {
+    if (currentProxyCount == 0) {
       showSnackbar("No Proxies available for export!", "error");
       return false;
     }
@@ -2883,6 +2888,17 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ "playwright":
+/*!*****************************!*\
+  !*** external "playwright" ***!
+  \*****************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("playwright");
+
+/***/ }),
+
 /***/ "uuid":
 /*!***********************!*\
   !*** external "uuid" ***!
@@ -3043,6 +3059,7 @@ for (let i = 0; i < tabs.length; i++) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("version").innerText = `${app.getVersion()}`;
   document.getElementById("content-wrapper").classList.remove("col-9");
   document.getElementById("content-wrapper").classList.add("col-12");
   document.getElementById("content-wrapper").style.width = "100%";

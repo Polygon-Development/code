@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ElephantAIO</title>
+    <title>Polygon</title>
     <link
       rel="stylesheet"
       href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -52,7 +52,7 @@
             <div class="row" style="margin-top: 170px; font-weight: bold">
               <div class="col-12 text-center">
                 <span style="color: #605170; font-size: 12px">V</span>
-                <span
+                <span id='version'
                   style="color: aliceblue; margin-left: 1px; font-size: 12px"
                   >1.0</span
                 >
@@ -115,8 +115,14 @@
         </div>
       </div>
     </div>
-
     <div id="snackbar">snackBar</div>
+    <script>
+      // re route logs to log and write in logs done by p
+      const log = require('electron-log');
+      console.log = log.log;
+      Object.assign(console, log.functions);
+      log.catchErrors()
+    </script>
     <script src="app.js"></script>
   </body>
 </html>

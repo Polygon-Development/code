@@ -206,14 +206,16 @@ const proxiesObj = {
     }
   },
   fillProxies: async (groupId) => {
-    let proxies = await proxiesObj.getProxiesByGroupId(groupId);
+    var proxies = await proxiesObj.getProxiesByGroupId(groupId);
     let proxyItems = ``;
+    let str = ''
     for (let i = 0; i < proxies.length; i++) {
+      str += proxies[i].proxy + '\n'
       proxyItems += `<div class="card proxyItem animate" id="proxyListItem_${proxies[i].proxyId}">
           <div class="cardRow">
             <div class="row">
               <div class="col-7">
-              ${proxies[0].proxy}
+              ${proxies[i].proxy}
               </div>
               <div class="col-3" style="color: #b23acb" id="timeProxyListItem_${proxies[i].proxyId}">0 ms</div>
               <div class="col-2 text-end">
@@ -232,7 +234,7 @@ const proxiesObj = {
           </div>
         </div>`;
     }
-
+    document.getElementById("proxies").value = str;
     document.getElementById("proxiesListPanel").innerHTML = proxyItems;
 
     for (let i = 0; i < proxies.length; i++) {
@@ -287,13 +289,8 @@ const proxiesObj = {
       showSnackbar("Please Select Proxy Group!", "error");
       return false;
     }
-    let currentProxyCount = parseInt(
-      document.getElementById("proxyGroupTotal").value
-    );
-    if (
-      currentProxyCount == 0 ||
-      document.getElementById("proxyGroupTotal").value
-    ) {
+    let currentProxyCount = parseInt(document.getElementById("proxyGroupTotal").value);
+    if (currentProxyCount == 0) {
       showSnackbar("No Proxies available for export!", "error");
       return false;
     }

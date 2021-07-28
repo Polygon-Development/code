@@ -101,6 +101,7 @@ for (let i = 0; i < tabs.length; i++) {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+    document.getElementById("version").innerText = `${app.getVersion()}`;
     document.getElementById("content-wrapper").classList.remove("col-9");
     document.getElementById("content-wrapper").classList.add("col-12");
     document.getElementById("content-wrapper").style.width = "100%";

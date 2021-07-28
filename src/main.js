@@ -2,33 +2,17 @@ import path from "path";
 import url from "url";
 import { app, BrowserWindow, Menu, ipcMain, shell } from "electron";
 const { autoUpdater } = require('electron-updater');
-
-// Special module holding environment variables which you declared
-// in config/env_xxx.json file.
 import env from "env";
-
-// set to false to stop the use of devtools
-var devtools = true
-
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
-if (env.name == "production") {
-  let firefoxPath = path.join(
-    ".",
-    "resources",
-    "app.asar.unpacked",
-    "node_modules",
-    "playwright-firefox",
-    ".local-browsers"
-  );
-  process.env.PLAYWRIGHT_BROWSERS_PATH = firefoxPath;
-} else {
-  process.env.PLAYWRIGHT_BROWSERS_PATH = 0;
-}
+// to turn off devtools set to false and on with true
+var devtools = true
 
-// Save userData in separate folders for each environment.
-// Thanks to this you can use production and development versions of the app
-// on same machine like those are two separate apps.
+var mainWindow;
+
+
+
+
 if (env.name !== "production") {
   const userDataPath = app.getPath("userData");
   app.setPath("userData", `${userDataPath} (${env.name})`);
@@ -41,22 +25,24 @@ const userDataPath = (
 const dbPath = userDataPath + "/db";
 
 app.on("ready", () => {
-  let mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 550,
     height: 330,
     minWidth: 550,
     minHeight: 330,
-    resizable: false,
-    thickFrame: true,
+    // resizable: false,
+    //  thickFrame: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
-      devTools: devtools 
-    }, 
+      devTools: devtools
+    },
   });
-
+  if (env.name == "production") {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
   if (fs.existsSync(`${dbPath}/User.json`)) {
     db.getAll(`User`, dbPath, (succ, data) => {
       if (succ) {
@@ -129,9 +115,44 @@ app.on("ready", () => {
     });
   });
 
-  if (env.name === "development") {
-    mainWindow.openDevTools();
-  }
+  ipcMain.on("app_version", (event) => {
+    console.log("app_version", { version: app.getVersion() })
+    event.sender.send("app_version", { version: app.getVersion() });
+  });
+  autoUpdater.on('erorr', (erorr) => {
+    console.log(erorr)
+  })
+  autoUpdater.on("checking-for-update", () => {
+    console.log('checking-for-update')
+  });
+
+  autoUpdater.on("update-not-available", () => {
+    console.log('update-not-available')
+  });
+
+  autoUpdater.on("update-available", () => {
+    console.log("Update Available");
+  });
+
+  autoUpdater.on("update-downloaded", async () => {
+    console.log("update-downloaded");
+
+  });
+
+  autoUpdater.on("download-progress", (progressObj) => {
+    // MainWindow.setProgressBar(Math.round(progressObj.percent));
+    let log_message = "Download speed: " + progressObj.bytesPerSecond;
+    log_message = log_message + " - Downloaded " + progressObj.percent + "%";
+    log_message =
+      log_message +
+      " (" +
+      progressObj.transferred +
+      "/" +
+      progressObj.total +
+      ")";
+    console.log(log_message)
+  });
+
 });
 
 app.on("window-all-closed", () => {
