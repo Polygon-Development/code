@@ -1,6 +1,11 @@
 const eventEmmiter = require("./events").eventEmmiter;
 const playwright = require('playwright')
 
+const amazon_code = require("./sites/Amazon")
+const DSG_code = require("./sites/DSG")
+const EndClothing_code = require("./sites/EndClothing")
+const Walmart_code = require("./sites/Walmart")
+
 const siteFunctionsObj = {
   getDiscordWebhookUrl: async () => {
     let settingsData = await require("../js/Settings").getSettings();
@@ -130,7 +135,19 @@ const siteFunctionsObj = {
     siteFunctionsObj.setStatus(`taskStatus_${taskId}`, "Starting Task", "#FAD2E1");
     await siteFunctionsObj.sleep(3000)
     siteFunctionsObj.stopTask(taskId)
-  }
+  },
+  DSG: async (taskId, task) => {
+
+  },
+  Amazon: async (taskId, task) => {
+   await amazon_code(taskId, task)
+  },
+  EndClothing: async (taskId, task) => {
+
+  },
+  Walmart: async (taskId, task) => {
+
+  },
 
 };
 module.exports = siteFunctionsObj;

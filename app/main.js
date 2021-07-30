@@ -171,6 +171,8 @@ var mainWindow;
 if (env__WEBPACK_IMPORTED_MODULE_3__.name !== "production") {
   const userDataPath = electron__WEBPACK_IMPORTED_MODULE_2__.app.getPath("userData");
   electron__WEBPACK_IMPORTED_MODULE_2__.app.setPath("userData", `${userDataPath} (${env__WEBPACK_IMPORTED_MODULE_3__.name})`);
+} else {
+  devtools = false;
 }
 
 const db = __webpack_require__(/*! electron-db */ "electron-db");

@@ -97,8 +97,9 @@ const settingsObj = {
         const hook = new Webhook(webhook_url);
         hook.setUsername('Polygon');
         hook.setAvatar('https://pbs.twimg.com/profile_images/1325672618276642816/xt_n63x2_400x400.jpg')
-        hook.send("Webhook Test Success! :confetti_ball: :tada:");
-        showSnackbar("Webhook Sent", "success");
+        hook.send("Webhook Test Success! :confetti_ball: :tada:")
+          .then(() => showSnackbar("Webhook Sent", "success"))
+          .catch(err => showSnackbar(err.message, "error"));
       }
     }
     document.getElementById("saveBtn").onclick = async () => {

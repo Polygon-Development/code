@@ -214,6 +214,14 @@ const eventEmmiter = __webpack_require__(/*! ./events */ "./src/helpers/events.j
 
 const playwright = __webpack_require__(/*! playwright */ "playwright");
 
+const amazon_code = __webpack_require__(/*! ./sites/Amazon */ "./src/helpers/sites/Amazon.js");
+
+const DSG_code = __webpack_require__(/*! ./sites/DSG */ "./src/helpers/sites/DSG.js");
+
+const EndClothing_code = __webpack_require__(/*! ./sites/EndClothing */ "./src/helpers/sites/EndClothing.js");
+
+const Walmart_code = __webpack_require__(/*! ./sites/Walmart */ "./src/helpers/sites/Walmart.js");
+
 const siteFunctionsObj = {
   getDiscordWebhookUrl: async () => {
     let settingsData = await __webpack_require__(/*! ../js/Settings */ "./src/js/Settings.js").getSettings();
@@ -310,9 +318,63 @@ const siteFunctionsObj = {
     siteFunctionsObj.setStatus(`taskStatus_${taskId}`, "Starting Task", "#FAD2E1");
     await siteFunctionsObj.sleep(3000);
     siteFunctionsObj.stopTask(taskId);
-  }
+  },
+  DSG: async (taskId, task) => {},
+  Amazon: async (taskId, task) => {
+    await amazon_code(taskId, task);
+  },
+  EndClothing: async (taskId, task) => {},
+  Walmart: async (taskId, task) => {}
 };
 module.exports = siteFunctionsObj;
+
+/***/ }),
+
+/***/ "./src/helpers/sites/Amazon.js":
+/*!*************************************!*\
+  !*** ./src/helpers/sites/Amazon.js ***!
+  \*************************************/
+/***/ ((module) => {
+
+const your_code_function = () => {};
+
+module.exports = your_code_function;
+
+/***/ }),
+
+/***/ "./src/helpers/sites/DSG.js":
+/*!**********************************!*\
+  !*** ./src/helpers/sites/DSG.js ***!
+  \**********************************/
+/***/ ((module) => {
+
+const your_code_function = () => {};
+
+module.exports = your_code_function;
+
+/***/ }),
+
+/***/ "./src/helpers/sites/EndClothing.js":
+/*!******************************************!*\
+  !*** ./src/helpers/sites/EndClothing.js ***!
+  \******************************************/
+/***/ ((module) => {
+
+const your_code_function = () => {};
+
+module.exports = your_code_function;
+
+/***/ }),
+
+/***/ "./src/helpers/sites/Walmart.js":
+/*!**************************************!*\
+  !*** ./src/helpers/sites/Walmart.js ***!
+  \**************************************/
+/***/ ((module) => {
+
+const your_code_function = () => {};
+
+module.exports = your_code_function;
 
 /***/ }),
 
@@ -1948,8 +2010,7 @@ const settingsObj = {
         const hook = new Webhook(webhook_url);
         hook.setUsername('Polygon');
         hook.setAvatar('https://pbs.twimg.com/profile_images/1325672618276642816/xt_n63x2_400x400.jpg');
-        hook.send("Webhook Test Success! :confetti_ball: :tada:");
-        showSnackbar("Webhook Sent", "success");
+        hook.send("Webhook Test Success! :confetti_ball: :tada:").then(() => showSnackbar("Webhook Sent", "success")).catch(err => showSnackbar(err.message, "error"));
       }
     };
 
